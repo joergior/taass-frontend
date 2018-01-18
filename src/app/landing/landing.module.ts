@@ -3,13 +3,17 @@ import { CommonModule } from '@angular/common';
 import {MatButtonModule, MatToolbarModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {LandingComponent} from './landing.component';
+import {PicoEventModule} from 'picoevent';
+
+
 
 @NgModule({
   imports: [
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    PicoEventModule
   ],
   declarations: [
     LandingComponent

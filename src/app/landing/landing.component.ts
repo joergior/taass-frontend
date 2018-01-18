@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {OktaAuthService} from '@okta/okta-angular';
+import {PicoEvent} from 'picoevent';
+import {LoginEvent} from '../login-event';
 
 @Component({
   selector: 'app-landing',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public oktaAuth: OktaAuthService,
+    private eventBus: PicoEvent) { }
 
   ngOnInit() {
   }
 
+  login() {
+    this.eventBus.publish(new LoginEvent('login'));
+  }
 }
