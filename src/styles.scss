@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body{
+  margin: 0;
+  height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.align-parent-right {
+  align-self: flex-end;
+}
+
+.align-parent-left{
+  align-self: flex-start;
+}
+
+.center-in-parent {
+  align-items: center;
+  justify-content: center;
+}
+
+@media all and (max-width: 500px) {
+  .center-in-parent {
+    flex: 1 auto;
+  }
+}
+
+.center-in-parent-no-responsive {
+  align-items: center;
+  justify-content: center;
+}
