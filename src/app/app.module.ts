@@ -4,11 +4,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
-import {MatButtonModule, MatToolbarModule} from '@angular/material';
+import {MatButtonModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from '@angular/material';
 import {AuthGuard} from './_guards';
 import {routing} from './routing/app.routing';
 import {OktaAuthModule} from '@okta/okta-angular';
 import {PicoEventModule} from 'picoevent';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const config = {
   issuer: 'https://dev-928137.oktapreview.com/oauth2/default',
@@ -19,7 +22,9 @@ const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent
+    LandingComponent,
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,10 @@ const config = {
     MatButtonModule,
     routing,
     OktaAuthModule.initAuth(config),
-    PicoEventModule
+    PicoEventModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

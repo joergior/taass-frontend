@@ -1,0 +1,31 @@
+<div class="box">
+
+  <mat-toolbar class="mat-elevation-z2" color="primary">
+    <div style="display: flex; flex-direction: row">
+      <button style="width: 32px" mat-button (click)="back()"><img style="width: 32px; height: 32px;" src="assets/arrow-left.png"></button>
+      <h1>Registrati</h1>
+    </div>
+  </mat-toolbar>
+
+  <div class="main-container vertical-fill">
+    <div class="center-in-parent mat-elevation-z8" id="main-content">
+      <!--forms block-->
+      <div>
+        <mat-form-field class="width-match-parent">
+          <input matInput type="email" placeholder="Email" #emailInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="width-match-parent" >
+          <input matInput type="email" placeholder="Ripeti email" #repeatEmailInput>
+        </mat-form-field>
+      </div>
+
+      <div style="display: flex; justify-content: space-between" class="standard-padding">
+        <button mat-button (click)="goLogin()">Sei già registrato? Fai il login!</button>
+        <button mat-raised-button color="primary"
+                (click)="register(emailInput.value, repeatEmailInput.value)">Registrati</button>
+      </div>
+    </div>
+  </div>
+
+</div>

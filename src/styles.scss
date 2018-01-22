@@ -40,3 +40,17 @@ body{
   align-items: center;
   justify-content: center;
 }
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.vertical-fill {
+  flex: 1 1 auto;
+}
+
+.width-match-parent {
+ width: 100%;
+}
