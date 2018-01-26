@@ -1,0 +1,9 @@
+.side-menu-container {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-flow: column;
+}
+
+.menu-button {
+}

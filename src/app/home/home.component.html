@@ -1,11 +1,20 @@
 <div class="box">
-  <mat-toolbar>
-    <div style="display: flex; flex-direction: row">
-      <button mat-button style="height: 32px; width: 32px">
-        <img src="{{menuToggleImgDir}}" style="height: 32px; width: 32px">
+  <mat-toolbar color="primary" style="padding-left: 0px">
+    <div style="display: flex; flex-direction: row; justify-content: flex-start; height: 100%; align-items: stretch">
+      <button mat-button (click)="sidenav.toggle()">
+        <img [src]="sidenav.opened ? 'assets/icons/arrow-left.png' : 'assets/icons/menu.png'" style="height: 32px; width: 32px" #imgToggle>
       </button>
-      <p> Projector</p>
+      <p style="padding-left: 16px; ">Projector</p>
     </div>
   </mat-toolbar>
-
+  <mat-sidenav-container  style="height: 100%; background-color:rgba(0, 0, 0, 0);">
+    <mat-sidenav mode="over" (keydown.escape)="sidenav.close()" #sidenav>
+      <div class="sidenav-header">
+        <app-side-menu></app-side-menu>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

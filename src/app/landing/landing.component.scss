@@ -1,6 +1,12 @@
-#main-content {
+:host {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+#main-content{
   width: 500px;
-  height: auto;
+  background-color: white;
 }
 
 #image-card-header {

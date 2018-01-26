@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+
+/* Large */
+:host {
+  display: flex;
+  flex-flow: row wrap;
+  /* This aligns items to the end line on main-axis */
+  justify-content: space-evenly;
+}
+
+@media all and (min-width: 540px) {
+  .project-card{
+    margin: 8px;
+  }
+  :host{
+    padding: 8px;
+  }
+}
+
+/* Small screens */
+@media all and (max-width: 539px) {
+  :host {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+    padding: 8px;
+  }
+  .project-card{
+    margin-bottom: 16px;
+  }
+}

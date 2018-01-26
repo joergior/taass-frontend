@@ -3,41 +3,35 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { LandingComponent } from './landing/landing.component';
-import {MatButtonModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from '@angular/material';
 import {AuthGuard} from './_guards';
 import {routing} from './routing/app.routing';
-import {OktaAuthModule} from '@okta/okta-angular';
 import {PicoEventModule} from 'picoevent';
-import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
+import {HomeModule} from './home/home.module';
+import {LandingModule} from './landing/landing.module';
+import {RegisterModule} from './register/register.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-const config = {
-  issuer: 'https://dev-928137.oktapreview.com/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '0oadnltwac6LT4BlO0h7'
-};
+import {HttpClientModule} from '@angular/common/http';
+import { OAuthService, UrlHelperService} from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
-    HomeComponent,
-    RegisterComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
-    MatToolbarModule,
-    MatButtonModule,
     routing,
-    OktaAuthModule.initAuth(config),
     PicoEventModule,
-    MatFormFieldModule,
-    MatInputModule,
-    BrowserAnimationsModule
+    HomeModule,
+    RegisterModule,
+    LandingModule,
+    HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    OAuthService,
+    UrlHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

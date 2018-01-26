@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSidenav} from '@angular/material';
+import {PicoEvent} from 'picoevent';
+import {CloseSidenavEvent} from '../events/close-sidenav-event';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +11,15 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   menuToggleImgDir: string;
 
-  constructor() { }
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
+  constructor(private eventBus: PicoEvent) { }
 
   ngOnInit() {
     this.menuToggleImgDir = 'assets/menu.png';
+    this.eventBus.listen(CloseSidenavEvent, e => {
+      this.sidenav.close();
+    });
   }
 
 }

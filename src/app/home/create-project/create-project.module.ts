@@ -6,6 +6,7 @@ import { CreateProjectComponent } from './create-project.component';
   imports: [
     CommonModule
   ],
-  declarations: [CreateProjectComponent]
+  declarations: [CreateProjectComponent],
+  exports: [CreateProjectComponent]
 })
 export class CreateProjectModule { }

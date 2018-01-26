@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {OktaAuthService} from '@okta/okta-angular';
 import {PicoEvent} from 'picoevent';
-import {LoginEvent} from '../login-event';
+import {LoginEvent} from '../events/login-event';
 import {Router} from '@angular/router';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-landing',
@@ -12,14 +13,9 @@ import {Router} from '@angular/router';
 export class LandingComponent implements OnInit {
 
   constructor(
-    public oktaAuth: OktaAuthService,
-    private eventBus: PicoEvent,
-    private router: Router) { }
+    private eventBus: PicoEvent) { }
 
   ngOnInit() {
-    if (this.oktaAuth.isAuthenticated()) {
-      this.router.navigate(['home']);
-    }
   }
 
   login() {

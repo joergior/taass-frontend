@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import {RegisterComponent} from './register.component';
 
 @NgModule({
   imports: [
@@ -10,8 +11,8 @@ import {MatButtonModule, MatFormFieldModule, MatInputModule, MatToolbarModule} f
     MatToolbarModule,
     MatFormFieldModule
   ],
-  declarations: [RegisterModule],
-  exports: [ RegisterModule ],
+  declarations: [RegisterComponent],
+  exports: [ RegisterComponent ],
 
 })
 
