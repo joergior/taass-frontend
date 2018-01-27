@@ -8,6 +8,7 @@ import {AllProjectsModule} from './all-projects/all-projects.module';
 import {CreateProjectModule} from './create-project/create-project.module';
 import {CreateProjectComponent} from './create-project/create-project.component';
 import {EditProfileModule} from './edit-profile/edit-profile.module';
+import {BackendService} from '../../services/backend.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,9 @@ import {EditProfileModule} from './edit-profile/edit-profile.module';
   ],
   entryComponents: [
     CreateProjectComponent
+  ],
+  providers: [
+    BackendService
   ],
   declarations: [HomeComponent],
   exports: [HomeComponent]

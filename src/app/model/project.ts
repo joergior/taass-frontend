@@ -10,7 +10,7 @@ export class Project {
   private _keynotes: Keynote[];
   private _logo: string;
 
-  constructor(title: string, description: string, owners: User[], repos: Repo[], keynotes: Keynote[], logo: string) {
+  constructor(title: string, description: string, owners: User[], repos?: Repo[], keynotes?: Keynote[], logo?: string) {
     this._title = title;
     this._description = description;
     this._owners = owners;

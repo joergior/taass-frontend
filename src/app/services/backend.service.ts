@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Project} from '../model/project';
 import {User} from '../model/user';
+import {Keynote} from '../model/keynote';
+import {Repo} from '../model/repo';
 
 @Injectable()
 export class BackendService {
@@ -9,8 +11,23 @@ export class BackendService {
 
   getAllProjects(): Project[] {
     const projects: Project[] = [];
+    const keynotes: Keynote[] = [
+      new Keynote('Presentazione 1', 'http://blablacar.com/yolo/derp', 'presentation'),
+      new Keynote('Presentazione 2', 'http://blablacar.com/yolo/derp', 'presentation'),
+      new Keynote('Presentazione 3', 'http://blablacar.com/yolo/derp', 'presentation'),
+      new Keynote('Presentazione 4', 'http://blablacar.com/yolo/derp', 'presentation'),
+    ];
+    const repos: Repo[] = [
+      new Repo('Repo 1', 'http://blablacar.com/yolo/derp', 'git'),
+      new Repo('Repo 2', 'http://blablacar.com/yolo/derp', 'github'),
+      new Repo('Repo 3' , 'http://blablacar.com/yolo/derp', 'bitbucket'),
+      new Repo('Repo 4', 'http://blablacar.com/yolo/derp', 'git'),
+    ];
+
     for (let i = 0; i < 15; i++) {
-      projects[i] = new Project();
+      projects[i] = new Project('Projector', 'Gli altri progetto fanno cagare, questo è figo a' +
+        ' peste perchè è fatto con Angular e gli altri muti tutti', [this.getCurrentUser()],
+        repos, keynotes, undefined);
     }
     return projects;
   }
