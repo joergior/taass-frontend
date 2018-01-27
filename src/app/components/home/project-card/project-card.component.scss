@@ -1,0 +1,61 @@
+@import '~@angular/material/theming';
+
+:host{
+  @include mat-elevation(8);
+  background-color: white;
+  margin-bottom: auto;
+}
+
+.card-padding{
+  padding: 16px;
+}
+
+.first-block{
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.more-info-button{
+  margin-top: 16px;
+  width: 100%;
+}
+
+.more-info-panel{
+  margin-top: 16px;
+}
+
+@media all and (min-width: 540px) {
+  .project-logo{
+    width: 200px;
+    height: 200px;
+  }
+  .title-students-container{
+    margin-left: 16px;
+  }
+  :host{
+    width: 500px;
+  }
+  .more-info-panel {
+    display: none;
+  }
+}
+
+@media all and (max-width: 539px) {
+  .project-logo{
+    max-width: 100%;
+  }
+  .title-students-container{
+    margin-top: 16px;
+  }
+  .student-list{
+    display: inline;
+  }
+  :host{
+    width: 100%;
+  }
+  .more-info-button{
+    display: none;
+  }
+}

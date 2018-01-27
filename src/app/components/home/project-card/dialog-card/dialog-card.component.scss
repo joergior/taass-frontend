@@ -1,0 +1,22 @@
+.project-logo{
+  max-width: 100%;
+}
+.title-students-container{
+  margin-top: 16px;
+}
+.student-list{
+  display: inline;
+}
+:host{
+  width: 100%;
+}
+.more-info-button{
+  display: none;
+}
+
+.first-block{
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: center;
+}

@@ -3,15 +3,17 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import {AuthGuard} from './_guards';
-import {routing} from './routing/app.routing';
+import {AuthGuardHome, AuthGuardLanding} from './services/_guards';
+import {routing} from './services/routing/app.routing';
 import {PicoEventModule} from 'picoevent';
-import {HomeModule} from './home/home.module';
-import {LandingModule} from './landing/landing.module';
-import {RegisterModule} from './register/register.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HomeModule} from './components/home/home.module';
+import {RegisterModule} from './components/register/register.module';
+import {LandingModule} from './components/landing/landing.module';
+import {PageNotFoundModule} from './components/page-not-found/page-not-found.module';
+import {OAuthService, UrlHelperService} from 'angular-oauth2-oidc';
 import {HttpClientModule} from '@angular/common/http';
-import { OAuthService, UrlHelperService} from 'angular-oauth2-oidc';
+
 
 @NgModule({
   declarations: [
@@ -25,10 +27,12 @@ import { OAuthService, UrlHelperService} from 'angular-oauth2-oidc';
     HomeModule,
     RegisterModule,
     LandingModule,
-    HttpClientModule
+    HttpClientModule,
+    PageNotFoundModule
   ],
   providers: [
-    AuthGuard,
+    AuthGuardHome,
+    AuthGuardLanding,
     OAuthService,
     UrlHelperService
   ],

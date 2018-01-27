@@ -1,0 +1,10 @@
+<div class="central-container mat-typography mat-typography">
+  <h1>Modifica il tuo profilo</h1>
+  <mat-list>
+    <mat-list-item *ngFor="let info of infos">
+      <mat-form-field matLine>
+        <input matInput placeholder="{{info.placeholder}}" value="{{info.value}}" type="{{info.placeholder.localeCompare('Email')===0 ? 'email' : ''}}">
+      </mat-form-field>
+    </mat-list-item>
+  </mat-list>
+</div>

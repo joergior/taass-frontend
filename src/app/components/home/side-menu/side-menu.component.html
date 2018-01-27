@@ -1,0 +1,24 @@
+<div class="sidenav-header" (click)="menuSelection(0)">
+  <p class="user-email">{{email}}</p>
+  <p class="user-name">{{name}}</p>
+  <img src="{{userImg}}" class="user-img">
+</div>
+<mat-nav-list style="width: 300px">
+  <mat-list-item (click)="menuSelection(1)">
+    <mat-icon matListIcon svgIcon="menu"></mat-icon>
+    <p matLine>Tutti i progetti</p>
+  </mat-list-item>
+  <mat-list-item (click)="menuSelection(2)" *ngIf="!hasProject">
+    <mat-icon matListIcon svgIcon="plus"></mat-icon>
+    <p matLine>Crea un progetto</p>
+  </mat-list-item>
+  <mat-list-item (click)="menuSelection(3)" *ngIf="hasProject">
+    <mat-icon matListIcon svgIcon="source-branch"></mat-icon>
+    <p matLine>Il mio progetto</p>
+  </mat-list-item>
+  <mat-list-item (click)="menuSelection(4)">
+    <mat-icon matListIcon svgIcon="logout"></mat-icon>
+    <p matLine>Logout</p>
+  </mat-list-item>
+</mat-nav-list>
+

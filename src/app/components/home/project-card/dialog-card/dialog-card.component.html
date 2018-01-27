@@ -1,0 +1,34 @@
+<div class="card-padding mat-typography" style="display: flex; flex-direction: column">
+  <a cdkFocusInitial></a>
+  <div class="first-block">
+    <img src="{{logoSrc}}" class="project-logo">
+    <div class="title-students-container">
+      <div>
+        <p style="margin-bottom: 0px; font-weight: bold">Nome</p>
+        <h2 style="margin-top: 0px">{{name}}</h2>
+      </div>
+      <div>
+        <p style="margin-bottom: 0px; font-weight: bold">Studenti</p>
+        <p class="student-list" style="margin: 0px" *ngFor="let student of studentsArray">{{student.name}} ({{student.badge}}); </p>
+      </div>
+    </div>
+  </div>
+  <mat-list>
+    <h3 mat-subheader>Presentazioni</h3>
+    <mat-list-item *ngFor="let keynote of keynotes">
+      <mat-icon mat-list-icon svgIcon="{{keynote.icon}}"></mat-icon>
+      <h4 mat-line>{{keynote.name}}</h4>
+      <p mat-line><a target="_blank" href="{{keynote.content}}">{{keynote.content}}</a></p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <h3 mat-subheader *ngIf="repos">Repository</h3>
+    <mat-list-item *ngFor="let repo of repos">
+      <mat-icon mat-list-icon svgIcon="{{repo.icon}}"></mat-icon>
+      <h4 mat-line>{{repo.name}}</h4>
+      <p mat-line><a target="_blank" href="{{repo.content}}">{{repo.content}}</a></p>
+    </mat-list-item>
+  </mat-list>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Chiudi</button>
+  </mat-dialog-actions>
+</div>

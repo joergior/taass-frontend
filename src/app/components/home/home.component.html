@@ -1,0 +1,26 @@
+<button mat-fab class="fab mat-elevation-z8" (click)="createProject()"><mat-icon svgIcon="plus"></mat-icon></button>
+<mat-toolbar color="accent" style="padding-left: 0px; height: auto" class="mat-typography mat-elevation-z8">
+  <button mat-button (click)="sidenav.toggle()" style="height: auto">
+    <img [src]="sidenav.opened ? 'assets/icons/arrow-left.png' : 'assets/icons/menu.png'" style="height: 32px; width: 32px" #imgToggle>
+  </button>
+  <span>
+    <h1 style="padding-left: 16px;">Projector</h1>
+  </span>
+  <span class="fill-remaining-space"></span>
+  <span>
+    <mat-form-field class="form-field" style="margin: 4px">
+      <mat-icon matSuffix svgIcon="magnify" color="primary"></mat-icon>
+      <input matInput placeholder="Cerca progetto" color="accent">
+    </mat-form-field>
+  </span>
+</mat-toolbar>
+<mat-sidenav-container class="nav mat-typography">
+  <mat-sidenav mode="over" (keydown.escape)="sidenav.close()" #sidenav>
+    <div class="sidenav-header">
+      <app-side-menu></app-side-menu>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
