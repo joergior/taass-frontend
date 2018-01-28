@@ -4,6 +4,7 @@ import {PicoEvent} from 'picoevent';
 import {Router} from '@angular/router';
 import {NavigationEvent} from '../../services/events/navigation-event';
 import {CloseSidenavEvent} from '../../services/events/close-sidenav-event';
+import {ShowToolbarEvent} from '../../services/events/show-toolbar-event';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,13 @@ import {CloseSidenavEvent} from '../../services/events/close-sidenav-event';
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
   menuToggleImgDir: string;
+  showSearchBarInToolbar = false;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
   currentWidth: number;
 
-  constructor(private eventBus: PicoEvent, private router: Router, private dialog: MatDialog) {
-    this.eventBus.listen(NavigationEvent, evt => {
+  constructor(private eventBus: PicoEvent, private router: Router) {
+    this.eventBus.listen(NavigationEvent, (evt: NavigationEvent) => {
       console.log('NavigationEvent received, event is: ' + evt.directions);
       switch (evt.directions) {
         case 'url': {
@@ -33,6 +35,9 @@ export class HomeComponent implements OnInit, AfterViewChecked {
         }
       }
     });
+    this.eventBus.listen(ShowToolbarEvent, (evt: ShowToolbarEvent) => {
+      this.showSearchBarInToolbar = evt.value;
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -44,6 +49,10 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     this.eventBus.listen(CloseSidenavEvent, e => {
       this.sidenav.close();
     });
+  }
+
+  onSearchChange(searchValue: string ) {
+    if (searchValue) console.log(searchValue);
   }
 
   createProject() {

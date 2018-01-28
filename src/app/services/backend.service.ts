@@ -9,7 +9,7 @@ export class BackendService {
 
   constructor() { }
 
-  getAllProjects(): Project[] {
+  getProjectsByName(name: string): Project[] {
     const projects: Project[] = [];
     const keynotes: Keynote[] = [
       new Keynote('Presentazione 1', 'http://blablacar.com/yolo/derp', 'presentation'),
@@ -39,5 +39,4 @@ export class BackendService {
   getUser(id: string): User {
     return new User('Lamberto', 'Basti', 'basti.lamberto@gmail.com', 's183833');
   }
-
 }

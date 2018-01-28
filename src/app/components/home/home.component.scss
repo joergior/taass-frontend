@@ -24,5 +24,19 @@
 
 .form-field {
   width: 200px;
-  height: 100%;
+}
+
+@media all and (max-width: 539px){
+
+  .fill-remaining-space {
+    display: none;
+  }
+  .toolbar-title{
+    display: none;
+  }
+  .search-bar-container {
+    margin: 0 auto;
+  }
+  .form-field{
+  }
 }

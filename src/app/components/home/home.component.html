@@ -1,16 +1,17 @@
 <button mat-fab class="fab mat-elevation-z8" (click)="createProject()"><mat-icon svgIcon="plus"></mat-icon></button>
-<mat-toolbar color="accent" style="padding-left: 0px; height: auto" class="mat-typography mat-elevation-z8">
+<mat-toolbar color="accent" style="padding-left: 0px; height: 60px" class="mat-typography mat-elevation-z8">
   <button mat-button (click)="sidenav.toggle()" style="height: auto">
     <img [src]="sidenav.opened ? 'assets/icons/arrow-left.png' : 'assets/icons/menu.png'" style="height: 32px; width: 32px" #imgToggle>
   </button>
-  <span>
+  <span class="toolbar-title">
     <h1 style="padding-left: 16px;">Projector</h1>
   </span>
   <span class="fill-remaining-space"></span>
-  <span>
-    <mat-form-field class="form-field" style="margin: 4px">
-      <mat-icon matSuffix svgIcon="magnify" color="primary"></mat-icon>
-      <input matInput placeholder="Cerca progetto" color="accent">
+  <span class="search-bar-container">
+    <mat-form-field class="form-field" style="margin: 4px" *ngIf="showSearchBarInToolbar">
+      <mat-icon matSuffix svgIcon="magnify" color="primary" *ngIf="showSearchBarInToolbar"></mat-icon>
+      <input matInput placeholder="Cerca progetto" color="accent"
+             (input)="onSearchChange($event.target.value)" *ngIf="showSearchBarInToolbar">
     </mat-form-field>
   </span>
 </mat-toolbar>
