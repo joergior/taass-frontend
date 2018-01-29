@@ -34,5 +34,6 @@
   </mat-list>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Chiudi</button>
+    <button mat-button (click)="joinProject()" *ngIf="!backend.getCurrentUser().isInProject">Chiedi di Partecipare</button>
   </mat-dialog-actions>
 </div>

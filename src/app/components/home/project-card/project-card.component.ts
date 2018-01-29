@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {DialogCardComponent} from './dialog-card/dialog-card.component';
 import {Project} from '../../../model/project';
+import {BackendService} from '../../../services/backend.service';
 
 @Component({
   selector: 'app-project-card',
@@ -13,7 +14,7 @@ export class ProjectCardComponent implements OnInit {
   @Input()
   project: Project;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public backend: BackendService) { }
 
   ngOnInit() {
 
@@ -25,5 +26,10 @@ export class ProjectCardComponent implements OnInit {
       height: '500px',
       data: this.project
     });
+  }
+
+  joinProject() {
+    // TODO gestire promise di ritorno;
+    this.backend.askToJoinProject(this.project);
   }
 }

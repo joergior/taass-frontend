@@ -45,6 +45,7 @@
           <p mat-line><a target="_blank" href="{{repo.link}}">{{repo.link}}</a></p>
         </mat-list-item>
       </mat-list>
+      <button mat-button (click)="joinProject()" *ngIf="!backend.getCurrentUser().isInProject">Chiedi di Partecipare</button>
     </ng-template>
   </mat-expansion-panel>
 </div>

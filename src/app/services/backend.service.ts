@@ -39,4 +39,21 @@ export class BackendService {
   getUser(id: string): User {
     return new User('Lamberto', 'Basti', 'basti.lamberto@gmail.com', 's183833');
   }
+
+  askToJoinProject(project: Project): Promise<boolean> {
+    return new Promise<boolean>(function(resolve, reject) {
+      return this._askToJoinProject(project, this);
+    });
+  }
+
+  private _askToJoinProject(project: Project, service: BackendService): Promise<boolean> {
+    return new Promise<boolean>(function(resolve, reject) {
+      if (service.getCurrentUser().isInProject) {
+        reject(false);
+      } else {
+        // TODO inviare al server richiesta di join di currentUser in project
+        resolve(true);
+      }
+    });
+  }
 }
