@@ -15,7 +15,7 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
   constructor(private backend: BackendService, private eventBus: PicoEvent) { }
 
   ngOnInit() {
-    this.projects = this.backend.getProjectsByName(null);
+    this.projects = this.backend.searchProjectsByName(null);
     this.eventBus.publish(new ShowToolbarEvent(true));
   }
 

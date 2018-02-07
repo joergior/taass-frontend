@@ -9,7 +9,7 @@
       </div>
       <div>
         <p style="margin-bottom: 0px; font-weight: bold">Studenti</p>
-        <p class="student-list" style="margin: 0px" *ngFor="let student of project.owners">
+        <p class="student-list" style="margin: 0px" *ngFor="let student of backend.fetchUsers(project.owners)">
           {{student.name}} ({{student.badgeNumber}}); </p>
       </div>
     </div>
@@ -45,7 +45,7 @@
           <p mat-line><a target="_blank" href="{{repo.link}}">{{repo.link}}</a></p>
         </mat-list-item>
       </mat-list>
-      <button mat-button (click)="joinProject()" *ngIf="!backend.getCurrentUser().isInProject">Chiedi di Partecipare</button>
+      <button mat-button (click)="joinProject()" *ngIf="!backend.getCurrentUser().isInProject">Partecipa</button>
     </ng-template>
   </mat-expansion-panel>
 </div>

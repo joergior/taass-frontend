@@ -9,7 +9,7 @@
       </div>
       <div>
         <p style="margin-bottom: 0px; font-weight: bold">Studenti</p>
-        <p class="student-list" style="margin: 0px" *ngFor="let student of project.owners">{{student.name}} ({{student.badgeNumber}}); </p>
+        <p class="student-list" style="margin: 0px" *ngFor="let student of backend.fetchUsers(project.owners)">{{student.name}} ({{student.badgeNumber}}); </p>
       </div>
     </div>
     <div>
@@ -34,6 +34,6 @@
   </mat-list>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Chiudi</button>
-    <button mat-button (click)="joinProject()" *ngIf="!backend.getCurrentUser().isInProject">Chiedi di Partecipare</button>
+    <button mat-button (click)="joinProject()" *ngIf="!backend.getCurrentUser().isInProject">Partecipa</button>
   </mat-dialog-actions>
 </div>

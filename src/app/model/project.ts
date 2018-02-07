@@ -1,16 +1,15 @@
 import {Repo} from './repo';
-import {User} from './user';
 import {Keynote} from './keynote';
 
 export class Project {
   private _title: string;
   private _description: string;
-  private _owners: User[];
+  private _owners: string[];
   private _repos: Repo[];
   private _keynotes: Keynote[];
   private _logo: string;
 
-  constructor(title: string, description: string, owners: User[], repos?: Repo[], keynotes?: Keynote[], logo?: string) {
+  constructor(title: string, description: string, owners: string[], repos?: Repo[], keynotes?: Keynote[], logo?: string) {
     this._title = title;
     this._description = description;
     this._owners = owners;
@@ -35,12 +34,16 @@ export class Project {
     this._description = value;
   }
 
-  get owners(): User[] {
+  get owners(): string[] {
     return this._owners;
   }
 
-  set owners(value: User[]) {
+  set owners(value: string[]) {
     this._owners = value;
+  }
+
+  addOwner(ownerId: string): number {
+    return this._owners.push(ownerId);
   }
 
   get repos(): Repo[] {

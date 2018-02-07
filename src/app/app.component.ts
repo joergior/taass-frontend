@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PicoEvent} from 'picoevent';
 import {LoginEvent} from './services/events/login-event';
-import {JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
+import {AuthConfig, JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
 import {Router} from '@angular/router';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -16,14 +16,18 @@ export class AppComponent implements OnInit {
   constructor(private eventBus: PicoEvent, private router: Router,
               private oauthService: OAuthService,
               private iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    this.oauthService.redirectUri = window.location.origin;
-    this.oauthService.clientId = '0oadnltwac6LT4BlO0h7';
-    this.oauthService.scope = 'openid profile email';
-    this.oauthService.issuer = 'https://dev-928137.oktapreview.com/oauth2/default';
+    const config: AuthConfig = new AuthConfig();
+    config.clientId = '0oadx8g38e3bAet2I0h7';
+    config.redirectUri = window.location.origin;
+    config.scope = 'openid profile email';
+    config.issuer = 'https://dev-928137.oktapreview.com/oauth2/default';
+    this.oauthService.configure(config);
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
     // Load Discovery Document and then try to login the user
     this.oauthService.loadDiscoveryDocument().then(() => {
-      this.oauthService.tryLogin();
+      this.oauthService.tryLogin().then(() => {
+        this.router.navigate(['home']);
+      });
     });
     this.iconRegistry
       .addSvgIcon('github', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github-circle.svg'))
@@ -34,6 +38,7 @@ export class AppComponent implements OnInit {
       .addSvgIcon('logout', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/logout.svg'))
       .addSvgIcon('menu', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/menu.svg'))
       .addSvgIcon('source-branch', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/source-branch.svg'))
+      .addSvgIcon('cancel', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/close-circle.svg'))
       .addSvgIcon('plus', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/plus.svg'));
   }
 

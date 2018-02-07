@@ -11,7 +11,7 @@ import {HomeModule} from './components/home/home.module';
 import {RegisterModule} from './components/register/register.module';
 import {LandingModule} from './components/landing/landing.module';
 import {PageNotFoundModule} from './components/page-not-found/page-not-found.module';
-import {OAuthService, UrlHelperService} from 'angular-oauth2-oidc';
+import {OAuthModule, OAuthService, UrlHelperService} from 'angular-oauth2-oidc';
 import {HttpClientModule} from '@angular/common/http';
 
 
@@ -28,7 +28,13 @@ import {HttpClientModule} from '@angular/common/http';
     RegisterModule,
     LandingModule,
     HttpClientModule,
-    PageNotFoundModule
+    PageNotFoundModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['https://dev-928137.oktapreview.com/api'],
+        sendAccessToken: true
+      }
+    })
   ],
   providers: [
     AuthGuardHome,

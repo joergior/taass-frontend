@@ -1,5 +1,3 @@
-import {Project} from './project';
-
 export class User {
 
   private _name: string;
@@ -7,17 +5,17 @@ export class User {
   private _email: string;
   private _badgeNumber: string;
   private _isInProject: boolean;
-  private _project: Project;
+  private _projectId: string;
 
   constructor(name: string, surname: string, email: string,
-              badgeNumber: string, project?: Project) {
+              badgeNumber: string, project?: string) {
     this._name = name;
     this._surname = surname;
     this._email = email;
     this._badgeNumber = badgeNumber;
     if (project) {
       this.isInProject = true;
-      this._project = project;
+      this._projectId = project;
     } else {
       this._isInProject = false;
     }
@@ -68,7 +66,9 @@ export class User {
       name: this.name,
       surname: this.surname,
       email: this.email,
-      badgeNumber: this.badgeNumber
+      badgeNumber: this.badgeNumber,
+      projectId: this._projectId,
+      isInProject: this._isInProject
     };
   }
 
@@ -77,7 +77,9 @@ export class User {
       {name: 'name', value: this.name },
       {name: 'surname', value: this.surname },
       {name: 'email', value: this. email },
-      {name: 'badgeNmber', value: this. badgeNumber }
+      {name: 'badgeNmber', value: this. badgeNumber },
+      {name: 'projectId', value: this._projectId},
+      {name: 'isInProject', value: this._isInProject},
     ];
   }
 }
