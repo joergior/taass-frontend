@@ -5,6 +5,7 @@ import {Keynote} from '../model/keynote';
 import {Repo} from '../model/repo';
 import {HttpClient} from '@angular/common/http';
 import {OAuthService} from 'angular-oauth2-oidc';
+import {ApiCostants} from '../model/api-costants';
 
 @Injectable()
 export class BackendService {
@@ -12,21 +13,55 @@ export class BackendService {
   private currentUser: User;
 
   constructor(private http: HttpClient, private oAuthService: OAuthService) {
-    this.http.get('https://dev-928137.oktapreview.com/api/v1/users/me').subscribe(data => {
-      console.log(data);
+    this.http.get('https://dev-928137.oktapreview.com/api/v1/users/me').subscribe();
+  }
+
+  searchProjectsByTitle(title: string): Promise<Project[]> {
+    const consts = new ApiCostants();
+    const here = this;
+    return new Promise<Project[]>(function (resolve, reject) {
+      here.http.get(`${consts.PROJECT_API}/search/findByTitleContainingIgnoreCase?title=${title}`)
+        .map((response: Response) => response.json())
+        .map((data: any) => data._embedded.projects as Project[])
+        .subscribe((data: Project[]) => {
+          resolve(data);
+        }, error => {
+          console.error(`ERROR FETCHING PROJECTS\n` + error);
+          reject(null);
+        });
     });
   }
 
-  searchProjectsByName(name: string): Project[] {
-    const projects: Project[] = [];
-    for (let i = 0; i < 15; i++) {
-      projects[i] = this.getTestProject();
-    }
-    return projects;
+  getKeynote(id: number): Promise<Keynote> {
+    const consts = new ApiCostants();
+    const _http = this.http;
+    return new Promise<Keynote>(function (resolve, reject) {
+      _http.get(`${consts.KEYNOTE_API}/${id}`)
+        .map((response: Response) => response.json())
+        .map((data: any) => data._embedded.users as Keynote)
+        .subscribe((data: Keynote) => {
+        resolve(data);
+      }, error => {
+        console.error(`ERROR FETCHING KEYNOTE ${id}\n${error}`);
+        reject(null);
+      });
+    });
   }
 
-  getProjectById(id: string) {
-    return this.getTestProject();
+  getRepo(id: number): Promise<Repo> {
+    const consts = new ApiCostants();
+    const _http = this.http;
+    return new Promise<Repo>(function (resolve, reject) {
+      _http.get(`${consts.REPO_API}/${id}`)
+        .map((response: Response) => response.json())
+        .map((data: any) => data._embedded.users as Repo)
+        .subscribe((data: Repo) => {
+          resolve(data);
+        }, error => {
+          console.error(`ERROR FETCHING KEYNOTE ${id}\n${error}`);
+          reject(null);
+        });
+    });
   }
 
   getUser(id: string): User {
@@ -56,7 +91,7 @@ export class BackendService {
 
   fetchUsers(usersIds: string[]): User[] {
     const users: User[] = [];
-    for(let userId of usersIds){
+    for (const userId of usersIds){
       users.push(this.getTestUser());
     }
 
@@ -83,11 +118,5 @@ export class BackendService {
 
   private getTestUser(): User {
     return new User('Lamberto', 'Basti', 'basti.lamberto@gmail.com', 's183833');
-  }
-
-  private getTestProject(): Project {
-    return new Project('Projector', 'Gli altri progetto fanno ifo, questo è figo a' +
-      ' peste perchè è fatto con Angular e gli altri muti', [this.getTestUser().name],
-      this.getTestRepos(), this.getTestKeynotes(), undefined);
   }
 }

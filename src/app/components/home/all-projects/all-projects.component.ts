@@ -2,6 +2,7 @@ import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {BackendService} from '../../../services/backend.service';
 import {PicoEvent} from 'picoevent';
 import {ShowToolbarEvent} from '../../../services/events/show-toolbar-event';
+import {Project} from '../../../model/project';
 
 @Component({
   selector: 'app-all-projects',
@@ -15,7 +16,7 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
   constructor(private backend: BackendService, private eventBus: PicoEvent) { }
 
   ngOnInit() {
-    this.projects = this.backend.searchProjectsByName(null);
+    this.backend.searchProjectsByTitle('P').then((data: Project[]) => {this.projects = data; });
     this.eventBus.publish(new ShowToolbarEvent(true));
   }
 

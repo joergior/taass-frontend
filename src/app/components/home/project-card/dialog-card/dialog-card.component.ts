@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Project} from '../../../../model/project';
 import {BackendService} from '../../../../services/backend.service';
+import {Keynote} from '../../../../model/keynote';
+import {Repo} from '../../../../model/repo';
 
 @Component({
   selector: 'app-dialog-card',
@@ -10,6 +12,8 @@ import {BackendService} from '../../../../services/backend.service';
 })
 export class DialogCardComponent implements OnInit {
   private project: Project;
+  keynotes: Keynote[];
+  repos: Repo[];
 
   constructor(public dialogRef: MatDialogRef<DialogCardComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Project,
@@ -18,6 +22,12 @@ export class DialogCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.project.keynotes.forEach(function(id) {
+      this.backend.getKeynote(id).then(data => this.keynotes.push(data));
+    });
+    this.project.repos.forEach(function(id) {
+      this.backend.getRepo(id).then(data => this.repos.push(data));
+    });
   }
 
   joinProject() {

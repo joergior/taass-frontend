@@ -1,15 +1,12 @@
-import {Repo} from './repo';
-import {Keynote} from './keynote';
-
 export class Project {
   private _title: string;
   private _description: string;
   private _owners: string[];
-  private _repos: Repo[];
-  private _keynotes: Keynote[];
+  private _repos: number[];
+  private _keynotes: number[];
   private _logo: string;
 
-  constructor(title: string, description: string, owners: string[], repos?: Repo[], keynotes?: Keynote[], logo?: string) {
+  constructor(title: string, description: string, owners: string[], repos?: number[], keynotes?: number[], logo?: string) {
     this._title = title;
     this._description = description;
     this._owners = owners;
@@ -46,19 +43,19 @@ export class Project {
     return this._owners.push(ownerId);
   }
 
-  get repos(): Repo[] {
+  get repos(): number[] {
     return this._repos;
   }
 
-  set repos(value: Repo[]) {
+  set repos(value: number[]) {
     this._repos = value;
   }
 
-  get keynotes(): Keynote[] {
+  get keynotes(): number[] {
     return this._keynotes;
   }
 
-  set keynotes(value: Keynote[]) {
+  set keynotes(value: number[]) {
     this._keynotes = value;
   }
 

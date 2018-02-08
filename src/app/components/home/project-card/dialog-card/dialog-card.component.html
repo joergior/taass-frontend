@@ -19,14 +19,14 @@
   </div>
   <mat-list>
     <h3 mat-subheader *ngIf="project.keynotes">Presentazioni</h3>
-    <mat-list-item *ngFor="let keynote of project.keynotes">
+    <mat-list-item *ngFor="let keynote of keynotes">
       <mat-icon mat-list-icon svgIcon="{{keynote.icon}}"></mat-icon>
       <h4 mat-line>{{keynote.title}}</h4>
       <p mat-line><a target="_blank" href="{{keynote.link}}">{{keynote.link}}</a></p>
     </mat-list-item>
     <mat-divider></mat-divider>
     <h3 mat-subheader *ngIf="project.repos">Repository</h3>
-    <mat-list-item *ngFor="let repo of project.repos">
+    <mat-list-item *ngFor="let repo of repos">
       <mat-icon mat-list-icon svgIcon="{{repo.icon}}"></mat-icon>
       <h4 mat-line>{{repo.title}}</h4>
       <p mat-line><a target="_blank" href="{{repo.link}}">{{repo.link}}</a></p>
