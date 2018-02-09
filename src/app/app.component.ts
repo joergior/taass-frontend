@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
         this.oktaAuth.loginRedirect();
       } else if (evt.loginAction.localeCompare('logout') === 0  ) {
         this.oktaAuth.logout();
+        this.router.navigate(['']);
       }
     });
   }

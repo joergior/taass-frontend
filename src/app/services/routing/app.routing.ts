@@ -11,7 +11,7 @@ import {OktaCallbackComponent} from '@okta/okta-angular';
 
 
 const appRoutes: Routes = [
-  { path: '', component: LandingComponent },
+  { path: '', component: LandingComponent, canActivate: [AuthGuardLanding] },
   {path: 'implicit/callback', component: OktaCallbackComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardHome], children: [
       {path: '', component: AllProjectsComponent },
