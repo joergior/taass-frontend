@@ -5,10 +5,14 @@ import {Keynote} from '../model/keynote';
 import {Repo} from '../model/repo';
 import {HttpClient} from '@angular/common/http';
 import {OAuthService} from 'angular-oauth2-oidc';
-import {ApiCostants} from '../model/api-costants';
 
 @Injectable()
 export class BackendService {
+
+  public API = 'http://localhost:8080/api';
+  public PROJECT_API = this.API + '/projects';
+  public KEYNOTE_API = this.API + '/keynotes';
+  public REPO_API = this.API + '/repoes';
 
   private currentUser: User;
 
@@ -17,12 +21,16 @@ export class BackendService {
   }
 
   searchProjectsByTitle(title: string): Promise<Project[]> {
-    const consts = new ApiCostants();
     const here = this;
     return new Promise<Project[]>(function (resolve, reject) {
-      here.http.get(`${consts.PROJECT_API}/search/findByTitleContainingIgnoreCase?title=${title}`)
-        .map((response: Response) => response.json())
-        .map((data: any) => data._embedded.projects as Project[])
+      here.http.get(`${here.PROJECT_API}/search/findByTitleContainingIgnoreCase?title=${title}`)
+        // .map((response: any) => response.toJSON())
+        .map((data: any) => {
+          data._embedded.projects.forEach(function(item){
+            delete item._links;
+          });
+          return data._embedded.projects;
+        })
         .subscribe((data: Project[]) => {
           resolve(data);
         }, error => {
@@ -33,32 +41,26 @@ export class BackendService {
   }
 
   getKeynote(id: number): Promise<Keynote> {
-    const consts = new ApiCostants();
-    const _http = this.http;
+    const here = this;
     return new Promise<Keynote>(function (resolve, reject) {
-      _http.get(`${consts.KEYNOTE_API}/${id}`)
-        .map((response: Response) => response.json())
-        .map((data: any) => data._embedded.users as Keynote)
+      here.http.get(`${here.KEYNOTE_API}/${id}`)
         .subscribe((data: Keynote) => {
         resolve(data);
       }, error => {
-        console.error(`ERROR FETCHING KEYNOTE ${id}\n${error}`);
+        console.error(`ERROR FETCHING KEYNOTE #${id}\nERROR: ${error}\nURL: \`${here.KEYNOTE_API}/${id}\``);
         reject(null);
       });
     });
   }
 
   getRepo(id: number): Promise<Repo> {
-    const consts = new ApiCostants();
-    const _http = this.http;
+    const here = this;
     return new Promise<Repo>(function (resolve, reject) {
-      _http.get(`${consts.REPO_API}/${id}`)
-        .map((response: Response) => response.json())
-        .map((data: any) => data._embedded.users as Repo)
+      here.http.get(`${here.REPO_API}/${id}`)
         .subscribe((data: Repo) => {
           resolve(data);
         }, error => {
-          console.error(`ERROR FETCHING KEYNOTE ${id}\n${error}`);
+          console.error(`ERROR FETCHING REPO #${id}\nERROR: ${error}\nURL: \`${here.REPO_API}/${id}\``);
           reject(null);
         });
     });

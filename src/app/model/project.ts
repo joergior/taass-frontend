@@ -1,17 +1,17 @@
 export class Project {
   private _title: string;
   private _description: string;
-  private _owners: string[];
-  private _repos: number[];
-  private _keynotes: number[];
+  private _ownerIds: string[];
+  private _repoIds: number[];
+  private _keynoteIds: number[];
   private _logo: string;
 
-  constructor(title: string, description: string, owners: string[], repos?: number[], keynotes?: number[], logo?: string) {
+  constructor(title: string, description: string, ownerIds: string[], repoIds?: number[], keynoteIds?: number[], logo?: string) {
     this._title = title;
     this._description = description;
-    this._owners = owners;
-    this._repos = repos;
-    this._keynotes = keynotes;
+    this._ownerIds = ownerIds;
+    this._repoIds = repoIds;
+    this._keynoteIds = keynoteIds;
     this._logo = logo;
   }
 
@@ -31,32 +31,32 @@ export class Project {
     this._description = value;
   }
 
-  get owners(): string[] {
-    return this._owners;
+  get ownerIds(): string[] {
+    return this._ownerIds;
   }
 
-  set owners(value: string[]) {
-    this._owners = value;
+  set ownerIds(value: string[]) {
+    this._ownerIds = value;
   }
 
-  addOwner(ownerId: string): number {
-    return this._owners.push(ownerId);
+  addOwnerId(ownerId: string): number {
+    return this._ownerIds.push(ownerId);
   }
 
-  get repos(): number[] {
-    return this._repos;
+  get repoIds(): number[] {
+    return this._repoIds;
   }
 
-  set repos(value: number[]) {
-    this._repos = value;
+  set repoIds(value: number[]) {
+    this._repoIds = value;
   }
 
   get keynotes(): number[] {
-    return this._keynotes;
+    return this._keynoteIds;
   }
 
-  set keynotes(value: number[]) {
-    this._keynotes = value;
+  set keynoteIds(value: number[]) {
+    this._keynoteIds = value;
   }
 
   get logo(): string {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {DialogCardComponent} from './dialog-card/dialog-card.component';
 import {Project} from '../../../model/project';
@@ -16,17 +16,18 @@ export class ProjectCardComponent implements OnInit {
 
   @Input()
   project: Project;
-  keynotes: Keynote[];
-  repos: Repo[];
+  keynotes = [];
+  repos = [];
 
   constructor(public dialog: MatDialog, public backend: BackendService) { }
 
   ngOnInit() {
-    this.project.keynotes.forEach(function(id) {
-      this.backend.getKeynote(id).then(data => this.keynotes.push(data));
+    const here = this;
+    this.project.keynoteIds.forEach(function(id: number) {
+      here.backend.getKeynote(id).then(data => here.keynotes.push(data));
     });
-    this.project.repos.forEach(function(id) {
-      this.backend.getRepo(id).then(data => this.repos.push(data));
+    this.project.repoIds.forEach(function(id: number) {
+      here.backend.getRepo(id).then(data => here.repos.push(data));
     });
   }
 

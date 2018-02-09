@@ -12,8 +12,8 @@ import {Repo} from '../../../../model/repo';
 })
 export class DialogCardComponent implements OnInit {
   private project: Project;
-  keynotes: Keynote[];
-  repos: Repo[];
+  keynotes = [];
+  repos = [];
 
   constructor(public dialogRef: MatDialogRef<DialogCardComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Project,
@@ -22,11 +22,12 @@ export class DialogCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.project.keynotes.forEach(function(id) {
-      this.backend.getKeynote(id).then(data => this.keynotes.push(data));
+    const here = this;
+    this.project.keynoteIds.forEach(function(id: number) {
+      here.backend.getKeynote(id).then(data => here.keynotes.push(data));
     });
-    this.project.repos.forEach(function(id) {
-      this.backend.getRepo(id).then(data => this.repos.push(data));
+    this.project.repoIds.forEach(function(id: number) {
+      here.backend.getRepo(id).then(data => here.repos.push(data));
     });
   }
 

@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   }
 
   onSearchChange(searchValue: string ) {
-    if (searchValue) console.log(searchValue);
+    if (searchValue){ console.log(searchValue);}
   }
 
   createProject() {
