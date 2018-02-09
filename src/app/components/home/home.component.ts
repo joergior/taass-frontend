@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {NavigationEvent} from '../../services/events/navigation-event';
 import {CloseSidenavEvent} from '../../services/events/close-sidenav-event';
 import {ShowToolbarEvent} from '../../services/events/show-toolbar-event';
+import {SearchChangedEvent} from '../../services/events/search-changed-event';
 
 @Component({
   selector: 'app-home',
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   }
 
   onSearchChange(searchValue: string ) {
-    if (searchValue){ console.log(searchValue);}
+    this.eventBus.publish(new SearchChangedEvent(searchValue));
   }
 
   createProject() {

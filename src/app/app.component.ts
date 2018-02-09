@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {PicoEvent} from 'picoevent';
 import {LoginEvent} from './services/events/login-event';
-import {AuthConfig, JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
 import {Router} from '@angular/router';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
+import {OktaAuthService} from '@okta/okta-angular';
 
 @Component({
   selector: 'app-root',
@@ -14,21 +14,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class AppComponent implements OnInit {
 
   constructor(private eventBus: PicoEvent, private router: Router,
-              private oauthService: OAuthService,
+              private oktaAuth: OktaAuthService,
               private iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    const config: AuthConfig = new AuthConfig();
-    config.clientId = '0oadx8g38e3bAet2I0h7';
-    config.redirectUri = window.location.origin;
-    config.scope = 'openid profile email';
-    config.issuer = 'https://dev-928137.oktapreview.com/oauth2/default';
-    this.oauthService.configure(config);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    // Load Discovery Document and then try to login the user
-    this.oauthService.loadDiscoveryDocument().then(() => {
-      this.oauthService.tryLogin().then(() => {
-        this.router.navigate(['home']);
-      });
-    });
     this.iconRegistry
       .addSvgIcon('github', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github-circle.svg'))
       .addSvgIcon('bitbucket', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/bitbucket.svg'))
@@ -46,9 +33,9 @@ export class AppComponent implements OnInit {
     this.eventBus.listen(LoginEvent, (evt: LoginEvent) => {
       console.log('Event "LoginEvent" received correctly: event is ' +  evt.loginAction);
       if (evt.loginAction.localeCompare('login') === 0) {
-        this.oauthService.initImplicitFlow();
+        this.oktaAuth.loginRedirect();
       } else if (evt.loginAction.localeCompare('logout') === 0  ) {
-        this.oauthService.logOut();
+        this.oktaAuth.logout();
       }
     });
   }

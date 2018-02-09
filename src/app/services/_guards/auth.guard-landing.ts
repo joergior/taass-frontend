@@ -1,16 +1,16 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {OAuthService} from 'angular-oauth2-oidc';
 import {Injectable} from '@angular/core';
+import {OktaAuthService} from '@okta/okta-angular';
 
 @Injectable()
 export class AuthGuardLanding implements CanActivate {
 
   constructor(
     private router: Router,
-    private oauthService: OAuthService) { }
+    private oktaAuth: OktaAuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!this.oauthService.hasValidIdToken()) {
+    if (!this.oktaAuth.isAuthenticated()) {
       return true;
     }
 

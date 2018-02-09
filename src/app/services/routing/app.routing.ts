@@ -7,10 +7,12 @@ import {CreateProjectComponent} from '../../components/home/create-project/creat
 import {EditProfileComponent} from '../../components/home/edit-profile/edit-profile.component';
 import {RegisterComponent} from '../../components/register/register.component';
 import {PageNotFoundComponent} from '../../components/page-not-found/page-not-found.component';
+import {OktaCallbackComponent} from '@okta/okta-angular';
 
 
 const appRoutes: Routes = [
-  { path: '', component: LandingComponent, canActivate: [AuthGuardLanding] },
+  { path: '', component: LandingComponent },
+  {path: 'implicit/callback', component: OktaCallbackComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardHome], children: [
       {path: '', component: AllProjectsComponent },
       {path: 'createProject', component: CreateProjectComponent },

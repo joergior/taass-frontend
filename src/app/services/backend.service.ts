@@ -4,26 +4,27 @@ import {User} from '../model/user';
 import {Keynote} from '../model/keynote';
 import {Repo} from '../model/repo';
 import {HttpClient} from '@angular/common/http';
-import {OAuthService} from 'angular-oauth2-oidc';
+import {OktaAuthService} from '@okta/okta-angular';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class BackendService {
 
-  public API = 'http://localhost:8080/api';
-  public PROJECT_API = this.API + '/projects';
-  public KEYNOTE_API = this.API + '/keynotes';
-  public REPO_API = this.API + '/repoes';
+  public static API = 'http://localhost:8080/api';
+  public static PROJECT_API = BackendService.API + '/projects';
+  public static KEYNOTE_API = BackendService.API + '/keynotes';
+  public static REPO_API = BackendService.API + '/repoes';
 
   private currentUser: User;
 
-  constructor(private http: HttpClient, private oAuthService: OAuthService) {
+  constructor(private http: HttpClient, private oktaAuth: OktaAuthService) {
     this.http.get('https://dev-928137.oktapreview.com/api/v1/users/me').subscribe();
   }
 
   searchProjectsByTitle(title: string): Promise<Project[]> {
     const here = this;
     return new Promise<Project[]>(function (resolve, reject) {
-      here.http.get(`${here.PROJECT_API}/search/findByTitleContainingIgnoreCase?title=${title}`)
+      here.http.get(`${BackendService.PROJECT_API}/search/findByTitleContainingIgnoreCase?title=${title}`)
         // .map((response: any) => response.toJSON())
         .map((data: any) => {
           data._embedded.projects.forEach(function(item){
@@ -43,11 +44,11 @@ export class BackendService {
   getKeynote(id: number): Promise<Keynote> {
     const here = this;
     return new Promise<Keynote>(function (resolve, reject) {
-      here.http.get(`${here.KEYNOTE_API}/${id}`)
+      here.http.get(`${BackendService.KEYNOTE_API}/${id}`)
         .subscribe((data: Keynote) => {
         resolve(data);
       }, error => {
-        console.error(`ERROR FETCHING KEYNOTE #${id}\nERROR: ${error}\nURL: \`${here.KEYNOTE_API}/${id}\``);
+        console.error(`ERROR FETCHING KEYNOTE #${id}\nERROR: ${error}\nURL: \`${BackendService.KEYNOTE_API}/${id}\``);
         reject(null);
       });
     });
@@ -56,11 +57,11 @@ export class BackendService {
   getRepo(id: number): Promise<Repo> {
     const here = this;
     return new Promise<Repo>(function (resolve, reject) {
-      here.http.get(`${here.REPO_API}/${id}`)
+      here.http.get(`${BackendService.REPO_API}/${id}`)
         .subscribe((data: Repo) => {
           resolve(data);
         }, error => {
-          console.error(`ERROR FETCHING REPO #${id}\nERROR: ${error}\nURL: \`${here.REPO_API}/${id}\``);
+          console.error(`ERROR FETCHING REPO #${id}\nERROR: ${error}\nURL: \`${BackendService.REPO_API}/${id}\``);
           reject(null);
         });
     });
