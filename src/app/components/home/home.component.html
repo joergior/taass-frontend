@@ -9,9 +9,9 @@
   <span class="fill-remaining-space"></span>
   <span class="search-bar-container">
     <mat-form-field class="form-field" style="margin: 4px" *ngIf="showSearchBarInToolbar">
-      <mat-icon matSuffix svgIcon="magnify" color="primary" *ngIf="showSearchBarInToolbar"></mat-icon>
+      <mat-icon matSuffix svgIcon="magnify" color="primary"></mat-icon>
       <input matInput placeholder="Cerca progetto" color="accent"
-             (input)="onSearchChange($event.target.value)" *ngIf="showSearchBarInToolbar">
+             (input)="onSearchChange($event.target.value)">
     </mat-form-field>
   </span>
 </mat-toolbar>

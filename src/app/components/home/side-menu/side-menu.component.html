@@ -16,6 +16,10 @@
     <mat-icon matListIcon svgIcon="source-branch"></mat-icon>
     <p matLine>Il mio progetto</p>
   </mat-list-item>
+  <mat-list-item (click)="menuSelection(0)" *ngIf="hasProject">
+    <mat-icon matListIcon svgIcon="source-branch"></mat-icon>
+    <p matLine>Profilo</p>
+  </mat-list-item>
   <mat-list-item (click)="menuSelection(4)">
     <mat-icon matListIcon svgIcon="logout"></mat-icon>
     <p matLine>Logout</p>

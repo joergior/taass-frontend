@@ -10,16 +10,17 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class BackendService {
 
+  public static FRONTEND_URL = 'http://localhost:1337';
   public static API = 'http://localhost:8080/api';
+  public static OKTA_API = 'https://dev-928137.oktapreview.com/api';
   public static PROJECT_API = BackendService.API + '/projects';
   public static KEYNOTE_API = BackendService.API + '/keynotes';
   public static REPO_API = BackendService.API + '/repoes';
+  public static CLIENT_ID = '0oadx8g38e3bAet2I0h7';
 
   private currentUser: User;
 
-  constructor(private http: HttpClient, private oktaAuth: OktaAuthService) {
-    this.http.get('https://dev-928137.oktapreview.com/api/v1/users/me').subscribe();
-  }
+  constructor(private http: HttpClient, private oktaAuth: OktaAuthService) {  }
 
   searchProjectsByTitle(title: string): Promise<Project[]> {
     const here = this;
@@ -88,8 +89,16 @@ export class BackendService {
     });
   }
 
-  getCurrentUser(): User {
-    return this.currentUser;
+  getCurrentUser(): Promise<User> {
+    const here = this;
+    return new Promise<User>(function (resolve, reject) {
+      here.oktaAuth.getOktaAuth().token.getUserInfo(here.oktaAuth.getAccessToken()).then(usr => {
+        console.log(usr);
+        here.http.get(`${BackendService.OKTA_API}/v1/apps/${BackendService.CLIENT_ID}/users/${usr.sub}`).subscribe(data => {
+          console.log(data);
+        });
+      });
+    });
   }
 
   fetchUsers(usersIds: string[]): User[] {

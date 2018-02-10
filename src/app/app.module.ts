@@ -13,11 +13,12 @@ import {PageNotFoundModule} from './components/page-not-found/page-not-found.mod
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {OktaAuthModule} from '@okta/okta-angular';
 import {AuthInterceptorService} from './services/auth-interceptor.service';
+import {BackendService} from './services/backend.service';
 
 const config = {
   issuer: 'https://dev-928137.oktapreview.com/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '0oadx8g38e3bAet2I0h7'
+  redirectUri: BackendService.FRONTEND_URL + '/implicit/callback',
+  clientId: BackendService.CLIENT_ID
 };
 
 @NgModule({

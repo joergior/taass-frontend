@@ -60,26 +60,4 @@ export class User {
   set isInProject(value: boolean) {
     this._isInProject = value;
   }
-
-  asJsOject(): object {
-    return {
-      name: this.name,
-      surname: this.surname,
-      email: this.email,
-      badgeNumber: this.badgeNumber,
-      projectId: this._projectId,
-      isInProject: this._isInProject
-    };
-  }
-
-  asArray(): object[] {
-    return [
-      {name: 'name', value: this.name },
-      {name: 'surname', value: this.surname },
-      {name: 'email', value: this. email },
-      {name: 'badgeNmber', value: this. badgeNumber },
-      {name: 'projectId', value: this._projectId},
-      {name: 'isInProject', value: this._isInProject},
-    ];
-  }
 }
