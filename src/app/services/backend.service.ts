@@ -11,14 +11,21 @@ import 'rxjs/add/operator/map';
 export class BackendService {
 
   public static API = 'http://localhost:8080/api';
+  public static OKTA_API = 'https://dev-928137.oktapreview.com/api';
   public static PROJECT_API = BackendService.API + '/projects';
   public static KEYNOTE_API = BackendService.API + '/keynotes';
   public static REPO_API = BackendService.API + '/repoes';
 
   private currentUser: User;
 
-  constructor(private http: HttpClient, private oktaAuth: OktaAuthService) {
-    this.http.get('https://dev-928137.oktapreview.com/api/v1/users/me').subscribe();
+  constructor(private http: HttpClient, private oktaAuth: OktaAuthService) {  }
+
+  printCurrentUser_() {
+    const accessToken = this.oktaAuth.getAccessToken().accessToken;
+    console.log(accessToken);
+    this.oktaAuth.getOktaAuth().token.getUserInfo(this.oktaAuth.getAccessToken()).then(user => {
+      console.log(user);
+    });
   }
 
   searchProjectsByTitle(title: string): Promise<Project[]> {
