@@ -22,7 +22,6 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
     this.eventBus.listen(SearchChangedEvent, (event: SearchChangedEvent) => {
       this.backend.searchProjectsByTitle(event.query).then((data: Project[]) => {this.projects = data; });
     });
-    this.backend.getCurrentUser();
   }
 
   ngOnDestroy() {
