@@ -6,6 +6,7 @@ import {BackendService} from '../../../services/backend.service';
 import {Keynote} from '../../../model/keynote';
 import {it} from 'selenium-webdriver/testing';
 import {Repo} from '../../../model/repo';
+import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-project-card',
@@ -16,6 +17,7 @@ export class ProjectCardComponent implements OnInit {
 
   @Input()
   project: Project;
+  users: User[];
   keynotes = [];
   repos = [];
 
@@ -24,11 +26,12 @@ export class ProjectCardComponent implements OnInit {
   ngOnInit() {
     const here = this;
     this.project.keynoteIds.forEach(function(id: number) {
-      here.backend.getKeynote(id).then(data => here.keynotes.push(data));
+      here.backend.getKeynoteById(id).then(data => here.keynotes.push(data));
     });
     this.project.repoIds.forEach(function(id: number) {
-      here.backend.getRepo(id).then(data => here.repos.push(data));
+      here.backend.getRepobyId(id).then(data => here.repos.push(data));
     });
+    this.backend.getUsersByID(this.project.ownerIds).then(data => this.users = data);
   }
 
   openDialog() {

@@ -6,6 +6,7 @@ import {Repo} from '../model/repo';
 import {HttpClient} from '@angular/common/http';
 import {OktaAuthService} from '@okta/okta-angular';
 import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class BackendService {
@@ -42,7 +43,7 @@ export class BackendService {
     });
   }
 
-  getKeynote(id: number): Promise<Keynote> {
+  getKeynoteById(id: number): Promise<Keynote> {
     const here = this;
     return new Promise<Keynote>(function (resolve, reject) {
       here.http.get(`${BackendService.KEYNOTE_API}/${id}`)
@@ -55,7 +56,7 @@ export class BackendService {
     });
   }
 
-  getRepo(id: number): Promise<Repo> {
+  getRepobyId(id: number): Promise<Repo> {
     const here = this;
     return new Promise<Repo>(function (resolve, reject) {
       here.http.get(`${BackendService.REPO_API}/${id}`)
@@ -68,67 +69,57 @@ export class BackendService {
     });
   }
 
-  getUser(id: string): User {
-    return this.getTestUser();
-  }
-
   askToJoinProject(project: Project): Promise<boolean> {
+    const here = this;
     return new Promise<boolean>(function(resolve, reject) {
-      return this._askToJoinProject(project, this);
-    });
-  }
-
-  private _askToJoinProject(project: string, service: BackendService): Promise<boolean> {
-    return new Promise<boolean>(function(resolve, reject) {
-      if (service.getTestUser().isInProject) {
-        reject(false);
-      } else {
-        // TODO inviare al server richiesta di join di currentUser in project
-        resolve(true);
-      }
     });
   }
 
   getCurrentUser(): Promise<User> {
     const here = this;
     return new Promise<User>(function (resolve, reject) {
-      here.oktaAuth.getOktaAuth().token.getUserInfo(here.oktaAuth.getAccessToken()).then(usr => {
-        console.log(usr);
-        here.http.get(`${BackendService.OKTA_API}/v1/apps/${BackendService.CLIENT_ID}/users/${usr.sub}`).subscribe(data => {
-          console.log(data);
-        });
+      here.http.get(BackendService.API + '/users/me').subscribe((data: any) => {
+        console.log('getCurrentUser() called, GET response is: ');
+        console.log(data);
+        if (data) {
+          resolve(new User(data.profile.given_name, data.profile.family_name , data.profile.email,
+                           data.profile.bagde_number, data.profile.projectId));
+        } else {
+          reject();
+        }
       });
     });
   }
 
-  fetchUsers(usersIds: string[]): User[] {
-    const users: User[] = [];
-    for (const userId of usersIds){
-      users.push(this.getTestUser());
-    }
-
-    return users;
+  getUserIdByEmail(email: string): Promise<string> {
+    const here = this;
+    return new Promise<string>(function (resolve, reject) {
+      here.http.get(`${BackendService.API}/users/email/${email}`).subscribe((data: any) => {
+        resolve(data.id);
+      });
+    });
   }
 
-  private getTestKeynotes(): Keynote[] {
-    return [
-      new Keynote('Presentazione 1', 'http://blablacar.com/yolo/derp', 'presentation'),
-      new Keynote('Presentazione 2', 'http://blablacar.com/yolo/derp', 'presentation'),
-      new Keynote('Presentazione 3', 'http://blablacar.com/yolo/derp', 'presentation'),
-      new Keynote('Presentazione 4', 'http://blablacar.com/yolo/derp', 'presentation'),
-    ];
+  getUsersByID(usersIds: string[]): Promise<User[]> {
+    const pArray = [];
+    const here = this;
+    usersIds.forEach(function (value) {
+      pArray.push(here.getUserByID(value));
+    });
+    return Promise.all(pArray);
   }
 
-  private getTestRepos(): Repo[] {
-    return [
-      new Repo('Repo 1', 'http://blablacar.com/yolo/derp', 'git'),
-      new Repo('Repo 2', 'http://blablacar.com/yolo/derp', 'github'),
-      new Repo('Repo 3' , 'http://blablacar.com/yolo/derp', 'bitbucket'),
-      new Repo('Repo 4', 'http://blablacar.com/yolo/derp', 'git'),
-    ];
+  getUserByID(userId: string): Promise<User> {
+    const here = this;
+    return new Promise<User>(function (resolve, reject) {
+      here.http.get(`${BackendService.API}/users/${userId}`).subscribe((data: any) => {
+        resolve(new User(data.profile.given_name, data.profile.family_name , data.profile.email,
+                         data.profile.bagde_number, data.profile.projectId));
+      });
+    });
   }
 
-  private getTestUser(): User {
-    return new User('Lamberto', 'Basti', 'basti.lamberto@gmail.com', 's183833');
+  createProject(project: Project): Observable<Object> {
+    return this.http.post(`${BackendService.API}/projects/create`, JSON.stringify(project).replace(/_/g, ''));
   }
 }

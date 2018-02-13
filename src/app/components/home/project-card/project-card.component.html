@@ -9,7 +9,7 @@
       </div>
       <div>
         <p style="margin-bottom: 0px; font-weight: bold">Studenti</p>
-        <p class="student-list" style="margin: 0px" *ngFor="let student of backend.fetchUsers(project.ownerIds)">
+        <p class="student-list" style="margin: 0px" *ngFor="let student of users">
           {{student.name}} ({{student.badgeNumber}}); </p>
       </div>
     </div>

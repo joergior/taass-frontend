@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {CloseSidenavEvent} from '../../../services/events/close-sidenav-event';
 import {NavigationEvent} from '../../../services/events/navigation-event';
 import {LoginEvent} from '../../../services/events/login-event';
+import {BackendService} from '../../../services/backend.service';
+import {User} from '../../../model/user';
 
 
 @Component({
@@ -13,16 +15,18 @@ import {LoginEvent} from '../../../services/events/login-event';
 })
 export class SideMenuComponent implements OnInit {
   userImg = 'https://vignette.wikia.nocookie.net/sote-rp/images/c/c4/User-placeholder.png/revision/latest?cb=20150624004222';
-  email = 'basti.lamberto@gmail.com';
-  name = 'Lamberto Basti';
-  hasProject = false;
+  private user: User;
 
-  constructor(public eventBus: PicoEvent, public router: Router) {
-
-  }
+  constructor(public eventBus: PicoEvent,
+              public router: Router,
+              public backend: BackendService) { }
 
   ngOnInit() {
-
+    this.backend.getCurrentUser().then((user: User) => {
+      console.log('sidemenu getCurrent User:');
+      console.log(user);
+      this.user = user;
+    });
   }
 
   menuSelection(index: number) {

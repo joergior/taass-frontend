@@ -6,7 +6,7 @@ export class Project {
   private _keynoteIds: number[];
   private _logo: string;
 
-  constructor(title: string, description: string, ownerIds: string[], repoIds?: number[], keynoteIds?: number[], logo?: string) {
+  constructor(title?: string, description?: string, ownerIds?: string[], repoIds?: number[], keynoteIds?: number[], logo?: string) {
     this._title = title;
     this._description = description;
     this._ownerIds = ownerIds;

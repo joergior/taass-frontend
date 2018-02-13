@@ -27,5 +27,5 @@
              (matChipInputTokenEnd)="add($event)" />
     </mat-chip-list>
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="submitProject()" style="width: 60px">Crea</button>
+  <button mat-raised-button color="primary" (click)="submitProject(projectName.value, projectDescription.value, projectLogoSrc.value)" style="width: 60px">Crea</button>
 </div>

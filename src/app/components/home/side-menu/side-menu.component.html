@@ -1,6 +1,6 @@
-<div class="sidenav-header" (click)="menuSelection(0)">
-  <p class="user-email">{{email}}</p>
-  <p class="user-name">{{name}}</p>
+<div class="sidenav-header" (click)="menuSelection(0)" *ngIf="user">
+  <p class="user-email">{{user.email}}</p>
+  <p class="user-name">{{user.name}} {{user.surname}}</p>
   <img src="{{userImg}}" class="user-img">
 </div>
 <mat-nav-list style="width: 300px">
