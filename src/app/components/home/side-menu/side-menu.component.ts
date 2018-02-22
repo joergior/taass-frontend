@@ -54,7 +54,7 @@ export class SideMenuComponent implements OnInit {
         break;
       }
       case (5): {
-        window.open('assets/app.apk', '_blank');
+        window.open('assets/app.apk');
       }
     }
   }

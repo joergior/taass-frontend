@@ -11,7 +11,8 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class BackendService {
 
-  public static FRONTEND_URL = 'http://localhost:1337';
+  public static FRONTEND_URL = 'http://ec2-18-217-15-16.us-east-2.compute.amazonaws.com';
+  // public static FRONTEND_URL = 'http://localhost:1337';
   public static API = 'http://ec2-18-217-15-16.us-east-2.compute.amazonaws.com:8080/api';
   public static OKTA_API = 'https://dev-928137.oktapreview.com/api';
   public static PROJECT_API = BackendService.API + '/projects';
