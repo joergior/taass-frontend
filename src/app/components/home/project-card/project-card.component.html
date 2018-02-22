@@ -13,10 +13,10 @@
           {{student.name}} ({{student.badgeNumber}}); </p>
       </div>
     </div>
-    <div>
-      <p style="margin-bottom: 0px; margin-top: 16px; font-weight: bold">Descrizione</p>
-      <p class="student-list" style="margin: 0px" >{{project.description}}</p>
-    </div>
+  </div>
+  <div>
+    <p style="margin-bottom: 0px; margin-top: 16px; font-weight: bold">Descrizione</p>
+    <p class="student-list" style="margin: 0px" >{{project.description}}</p>
   </div>
   <button mat-raised-button color="primary" class="more-info-button" (click)="openDialog()">Più informazioni</button>
   <mat-expansion-panel class="more-info-panel" *ngIf="project.keynotes || project.repoIds">

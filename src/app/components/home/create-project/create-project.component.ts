@@ -5,6 +5,7 @@ import {Project} from '../../../model/project';
 import {BackendService} from '../../../services/backend.service';
 import {User} from '../../../model/user';
 import {OktaAuthService} from '@okta/okta-angular';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-project',
@@ -24,7 +25,8 @@ export class CreateProjectComponent implements OnInit {
 
   emails = [];
 
-  constructor(private backend: BackendService, private oktaAuth: OktaAuthService) { }
+  constructor(private backend: BackendService, private oktaAuth: OktaAuthService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -36,9 +38,6 @@ export class CreateProjectComponent implements OnInit {
     // Add an email
     if ((value || '').trim()) {
       this.emails.push(value.trim());
-      this.backend.getUserIdByEmail(value.trim()).then((derp: string) => {
-        here.newProject.ownerIds.push(derp);
-      });
     }
 
     // Reset the input value
@@ -62,8 +61,14 @@ export class CreateProjectComponent implements OnInit {
 
   submitProject(projectName: string, projectDescription: string, projectLogoSrc: string) {
     const here = this;
-    this.oktaAuth.getOktaAuth().token.getUserInfo(this.oktaAuth.getAccessToken()).then(user => {
-      here.backend.createProject(new Project(projectName, projectDescription, [user.sub])).subscribe();
+    this.oktaAuth.getOktaAuth().token.getUserInfo(this.oktaAuth.getAccessToken()).then(currentUser => {
+      here.backend.getUsersIdbyEmail(here.emails).then((userIds: string[]) => {
+        console.log(userIds);
+        console.log([currentUser.sub].concat(userIds));
+        here.backend.createProject(new Project(projectName, projectDescription, [currentUser.sub].concat(userIds))).subscribe(data => {
+          here.router.navigate(['']);
+        });
+      });
     });
   }
 }

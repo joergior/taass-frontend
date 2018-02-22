@@ -17,7 +17,7 @@
     <mat-chip-list #chipList>
       <mat-chip *ngFor="let email of emails" [selectable]="selectable"
                 [removable]="removable" (remove)="remove(email)">
-        {{email.name}}
+        {{email}}
         <mat-icon matChipRemove *ngIf="removable" svgIcon="cancel"></mat-icon>
       </mat-chip>
       <input placeholder="emails"

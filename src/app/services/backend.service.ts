@@ -12,7 +12,7 @@ import {Observable} from 'rxjs/Observable';
 export class BackendService {
 
   public static FRONTEND_URL = 'http://localhost:1337';
-  public static API = 'http://localhost:8080/api';
+  public static API = 'http://ec2-18-217-15-16.us-east-2.compute.amazonaws.com:8080/api';
   public static OKTA_API = 'https://dev-928137.oktapreview.com/api';
   public static PROJECT_API = BackendService.API + '/projects';
   public static KEYNOTE_API = BackendService.API + '/keynotes';
@@ -22,6 +22,11 @@ export class BackendService {
   private currentUser: User;
 
   constructor(private http: HttpClient, private oktaAuth: OktaAuthService) {  }
+
+  static validateEmail(email: string): boolean {
+    const EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    return !(email !== '' && (email.length <= 5 || !EMAIL_REGEXP.test(email)));
+  }
 
   searchProjectsByTitle(title: string): Promise<Project[]> {
     const here = this;
@@ -94,10 +99,27 @@ export class BackendService {
   getUserIdByEmail(email: string): Promise<string> {
     const here = this;
     return new Promise<string>(function (resolve, reject) {
-      here.http.get(`${BackendService.API}/users/email/${email}`).subscribe((data: any) => {
-        resolve(data.id);
-      });
+      if (BackendService.validateEmail(email)) {
+        here.http.get(`${BackendService.API}/users/email/${email}`).subscribe((data: any) => {
+          resolve(data.id);
+        }, error => {
+          reject(error);
+        });
+      } else {
+        reject(undefined);
+      }
     });
+  }
+
+  getUsersIdbyEmail(emails: string[]): Promise<string[]> {
+    const idArray = [];
+    const here = this;
+    emails.forEach(value => {
+      if (BackendService.validateEmail(value)) {
+        idArray.push(here.getUserIdByEmail(value));
+      }
+    });
+    return Promise.all(idArray);
   }
 
   getUsersByID(usersIds: string[]): Promise<User[]> {
@@ -120,6 +142,8 @@ export class BackendService {
   }
 
   createProject(project: Project): Observable<Object> {
+    console.log('creating project: ');
+    console.log(JSON.stringify(project).replace(/_/g, ''));
     return this.http.post(`${BackendService.API}/projects/create`, JSON.stringify(project).replace(/_/g, ''));
   }
 }

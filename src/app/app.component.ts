@@ -26,7 +26,8 @@ export class AppComponent implements OnInit {
       .addSvgIcon('menu', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/menu.svg'))
       .addSvgIcon('source-branch', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/source-branch.svg'))
       .addSvgIcon('cancel', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/close-circle.svg'))
-      .addSvgIcon('plus', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/plus.svg'));
+      .addSvgIcon('plus', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/plus.svg'))
+      .addSvgIcon('android', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/android.svg'));
   }
 
   ngOnInit(): void {

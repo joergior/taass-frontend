@@ -10,7 +10,7 @@ import {User} from '../../../../model/user';
   styleUrls: ['./dialog-card.component.scss']
 })
 export class DialogCardComponent implements OnInit {
-  private project: Project;
+  project: Project;
   keynotes = [];
   repos = [];
   users: User[];

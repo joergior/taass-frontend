@@ -18,7 +18,7 @@ import {BackendService} from './services/backend.service';
 const config = {
   issuer: 'https://dev-928137.oktapreview.com/oauth2/default',
   redirectUri: BackendService.FRONTEND_URL + '/implicit/callback',
-  clientId: BackendService.CLIENT_ID
+  clientId: BackendService.CLIENT_ID,
 };
 
 @NgModule({

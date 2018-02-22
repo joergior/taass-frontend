@@ -15,7 +15,8 @@ import {User} from '../../../model/user';
 })
 export class SideMenuComponent implements OnInit {
   userImg = 'https://vignette.wikia.nocookie.net/sote-rp/images/c/c4/User-placeholder.png/revision/latest?cb=20150624004222';
-  private user: User;
+  user: User;
+  hasProject = false;
 
   constructor(public eventBus: PicoEvent,
               public router: Router,
@@ -50,6 +51,10 @@ export class SideMenuComponent implements OnInit {
       }
       case (4): {
         this.eventBus.publish(new LoginEvent('logout'));
+        break;
+      }
+      case (5): {
+        window.open('assets/app.apk', '_blank');
       }
     }
   }

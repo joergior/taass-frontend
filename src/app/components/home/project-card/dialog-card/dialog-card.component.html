@@ -12,10 +12,10 @@
         <p class="student-list" style="margin: 0px" *ngFor="let student of users">{{student.name}} ({{student.badgeNumber}}); </p>
       </div>
     </div>
-    <div>
-      <p style="margin-bottom: 0px; margin-top: 16px; font-weight: bold">Descrizione</p>
-      <p class="student-list" style="margin: 0px" >{{project.description}}</p>
-    </div>
+  </div>
+  <div>
+    <p style="margin-bottom: 0px; margin-top: 16px; font-weight: bold">Descrizione</p>
+    <p class="student-list" style="margin: 0px" >{{project.description}}</p>
   </div>
   <mat-list>
     <h3 mat-subheader *ngIf="project.keynotes">Presentazioni</h3>
